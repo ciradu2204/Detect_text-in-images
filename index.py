@@ -14,7 +14,6 @@ dynamo_resource= boto3.resource('dynamodb', region_name='us-east-1')
 def detectText(bucket,key):
     try:
           response=rekognition.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':key}})
-          print(response)
           return response
     except ClientError as e: 
          logging.error(e)
@@ -70,9 +69,6 @@ def handler(event, context):
     message = json.loads(event['Records'][0]['Sns']['Message'])
     bucket = message['Records'][0]['s3']['bucket']['name']
     key = urllib.parse.unquote_plus(message['Records'][0]['s3']['object']['key'])
-    print(message)
-    print(bucket)
-    print(key)
     try:
         
             #detect_text using rekognito
@@ -99,7 +95,7 @@ def handler(event, context):
             #check if detected texts has hazard or danger
             for textObject in detectedText:
                 if  textObject=="HAZARD" or textObject=="Danger":
-                  
+                  print("{} has a hazard or danger word".format(key))
                   #register phone number 
                   response = sns_client.create_sms_sandbox_phone_number(
                   PhoneNumber='+250785971983',

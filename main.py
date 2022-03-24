@@ -2,7 +2,8 @@ from cmath import nan
 import boto3.session 
 import time
 import glob
-from decouple import config
+import os
+from dotenv import load_dotenv, find_dotenv
 
 from S3 import create_bucket
 from S3 import addBucket_Notification_configuration
@@ -15,9 +16,10 @@ from clear import deleteAllResource
 from Lambda.Lambda import createLambdaFunction
 from Lambda.Lambda import addPermissionLambda
 
-aws_access_key_id=config['aws_access_key_id']
-aws_secret_access_key=config['aws_secret_access_key']
-aws_session_token=config['aws_session_token']
+load_dotenv(find_dotenv())
+aws_access_key_id=os.environ.get('aws_access_key_id')
+aws_secret_access_key=os.environ.get('aws_secret_access_key')
+aws_session_token=os.environ.get('aws_session_token')
 #create a session 
 session=boto3.session.Session(aws_access_key_id, aws_secret_access_key, aws_session_token, 'us-east-1')
 lab_role_urn="arn:aws:iam::253294972291:role/LabRole"
