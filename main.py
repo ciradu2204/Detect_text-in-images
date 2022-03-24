@@ -1,8 +1,8 @@
 from cmath import nan
 import boto3.session 
-import os
 import time
 import glob
+from decouple import config
 
 from S3 import create_bucket
 from S3 import addBucket_Notification_configuration
@@ -15,10 +15,9 @@ from clear import deleteAllResource
 from Lambda.Lambda import createLambdaFunction
 from Lambda.Lambda import addPermissionLambda
 
-
-aws_access_key_id='ASIATV6MORWBTLJ7KB5Z'
-aws_secret_access_key='OLwnbF24rvH4vzMGQLhaTMBBNvlCBqxAqKB0UJb2'
-aws_session_token='FwoGZXIvYXdzEOv//////////wEaDJ1zw+XRETQ347f3vSLLAbK2zTBq3Fw2XW1gnRHIreK6qsIu73XqtdKY4YdhQoHHFxnqTDXnnnzHZfCIjFlPBQLNe01ZBSWoTD11l5Fs+SnKz9ejNnB3lNJrwbphiFze+TWnnRTE9Prybmow78bB5hofxKmtFnxLcySQOCJkj5hQDy6ocG91NaJI8kdTkPiwDpQA0f3VvhtKgfe6yGJmJprWBEhLZWxDvVWPj/zkavGlhaLXatQjKsR3Ue/vimDtGyTS1Y70kd5WDxrdmZz2e/L5WdITSn+jDMWvKMvk8pEGMi0FCRXbaOe0qgjw/y93bLc7QP8cTOgAx+J20tXl8rkC7OW2mkXA4R73KErIBk8='
+aws_access_key_id=config['aws_access_key_id']
+aws_secret_access_key=config['aws_secret_access_key']
+aws_session_token=config['aws_session_token']
 #create a session 
 session=boto3.session.Session(aws_access_key_id, aws_secret_access_key, aws_session_token, 'us-east-1')
 lab_role_urn="arn:aws:iam::253294972291:role/LabRole"
