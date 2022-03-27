@@ -22,6 +22,7 @@ def createASubscription(topicArn, protocol, endpoint, sns_client):
     except ClientError as e: 
         logging.error(e) 
 
+# a function to add permission to sns
 def addPermission(sns_client, sns_policy, TopicArn):
       try:
         sns_client.set_topic_attributes(
@@ -32,6 +33,7 @@ def addPermission(sns_client, sns_policy, TopicArn):
       except ClientError as e:
         logging.error(e)
 
+# a function to list subscription per topic
 def listOfSubscribers(sns_client, TopicArn): 
    try:
      return sns_client.list_subscriptions_by_topic(
@@ -40,6 +42,7 @@ def listOfSubscribers(sns_client, TopicArn):
    except ClientError as e: 
       logging.error(e)
 
+# a function to  delete topic and its subscription
 def deleteTopic(sns_client, TopicArn): 
    try: 
       response =  sns_client.list_subscriptions_by_topic(TopicArn=TopicArn)['Subscriptions']

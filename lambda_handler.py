@@ -70,7 +70,6 @@ def handler(event, context):
     bucket = message['Records'][0]['s3']['bucket']['name']
     key = urllib.parse.unquote_plus(message['Records'][0]['s3']['object']['key'])
     try:
-        
             #detect_text using rekognito
             response = detectText(bucket,key)
             
